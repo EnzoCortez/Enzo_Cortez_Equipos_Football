@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Enzo_Cortez_Equipos_Football.Models
 {
@@ -11,8 +12,9 @@ namespace Enzo_Cortez_Equipos_Football.Models
         public int Edad { get; set; }  // Edad del jugador
 
         // Relación con Equipo
+        
         public int EquipoId { get; set; }
-        public Equipo Equipo { get; set; }  // Equipo al que pertenece el jugador
+        public Equipo? Equipo { get; set; }  // Equipo al que pertenece el jugador
     }
 
 }
