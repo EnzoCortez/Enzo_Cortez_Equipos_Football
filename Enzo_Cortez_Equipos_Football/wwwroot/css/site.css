@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Establecer color de fondo gris en toda la página */
+body {
+    background-color: #f0f0f0; /* Gris claro */
+}
