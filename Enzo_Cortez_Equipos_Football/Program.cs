@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Enzo_Cortez_Equipos_Football.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Enzo_Cortez_Equipos_FootballContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Enzo_Cortez_Equipos_FootballContext") ?? throw new InvalidOperationException("Connection string 'Enzo_Cortez_Equipos_FootballContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
