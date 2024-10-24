@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Enzo_Cortez_Equipos_Football.Models
@@ -18,6 +19,9 @@ namespace Enzo_Cortez_Equipos_Football.Models
         // Relación con Jugadores
         
         public ICollection<Jugador>? Jugadores { get; set; }
+        public Estadio Estadio { get; set; }
+        [ForeignKey("Estadio")]
+        public int IdEstadio { get; set; }
     }
 
 }

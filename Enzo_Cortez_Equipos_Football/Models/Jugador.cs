@@ -9,6 +9,8 @@ namespace Enzo_Cortez_Equipos_Football.Models
         public int Id { get; set; }  // Identificador único del jugador
         public string Nombre { get; set; }  // Nombre completo del jugador
         public string Posicion { get; set; }  // Posición en el campo (ej: delantero, defensa)
+
+        [Range(18,40)]
         public int Edad { get; set; }  // Edad del jugador
 
         // Relación con Equipo
