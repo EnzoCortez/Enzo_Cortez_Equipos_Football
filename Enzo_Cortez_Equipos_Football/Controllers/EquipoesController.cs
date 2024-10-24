@@ -22,7 +22,8 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
         // GET: Equipoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Equipo.ToListAsync());
+            var enzo_Cortez_Equipos_FootballContext = _context.Equipo.Include(e => e.Estadio);
+            return View(await enzo_Cortez_Equipos_FootballContext.ToListAsync());
         }
 
         // GET: Equipoes/Details/5
@@ -34,6 +35,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
             }
 
             var equipo = await _context.Equipo
+                .Include(e => e.Estadio)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (equipo == null)
             {
@@ -46,6 +48,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
         // GET: Equipoes/Create
         public IActionResult Create()
         {
+            ViewData["IdEstadio"] = new SelectList(_context.Estadio, "Id", "Id");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Ciudad,Titulos,AceptaExtranjeros")] Equipo equipo)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Ciudad,Titulos,AceptaExtranjeros,IdEstadio")] Equipo equipo)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdEstadio"] = new SelectList(_context.Estadio, "Id", "Id", equipo.IdEstadio);
             return View(equipo);
         }
 
@@ -78,6 +82,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
             {
                 return NotFound();
             }
+            ViewData["IdEstadio"] = new SelectList(_context.Estadio, "Id", "Id", equipo.IdEstadio);
             return View(equipo);
         }
 
@@ -86,7 +91,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Ciudad,Titulos,AceptaExtranjeros")] Equipo equipo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Ciudad,Titulos,AceptaExtranjeros,IdEstadio")] Equipo equipo)
         {
             if (id != equipo.Id)
             {
@@ -113,6 +118,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdEstadio"] = new SelectList(_context.Estadio, "Id", "Id", equipo.IdEstadio);
             return View(equipo);
         }
 
@@ -125,6 +131,7 @@ namespace Enzo_Cortez_Equipos_Football.Controllers
             }
 
             var equipo = await _context.Equipo
+                .Include(e => e.Estadio)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (equipo == null)
             {
